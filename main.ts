@@ -20,32 +20,15 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Easy, function (sprite, otherSpr
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectile = sprites.createProjectileFromSprite(assets.image`tankShell`, theTank, 50, 0)
-    pause(100)
+    projectile = sprites.createProjectileFromSprite(assets.image`tankShell`, theTank, 400, 0)
+    pause(500)
 })
 function setDifficulty () {
     menuSelector.destroy()
     easyDifficulty.destroy()
     mediumDifficulty.destroy()
     hardDifficulty.destroy()
-    theTank = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . f f f f f f f f f f f f f 
-        . . . f f f f f f f f f f f f f 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
-        . f f . . . . . . . . . . f f . 
-        f . . f . . . . . . . . f . . f 
-        f . . f . . . . . . . . f . . f 
-        . f f . . . . . . . . . . f f . 
-        `, SpriteKind.Player)
+    theTank = sprites.create(assets.image`theTank`, SpriteKind.Player)
     scene.cameraFollowSprite(theTank)
     controller.moveSprite(theTank)
     if (gameDifficulty == 1) {
