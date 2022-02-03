@@ -19,10 +19,41 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Easy, function (sprite, otherSpr
         setDifficulty()
     }
 })
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+	
+})
 function setDifficulty () {
+    menuSelector.destroy()
     easyDifficulty.destroy()
     mediumDifficulty.destroy()
     hardDifficulty.destroy()
+    theTank = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . f f f f f f f f f f f f f 
+        . . . f f f f f f f f f f f f f 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 
+        . f f . . . . . . . . . . f f . 
+        f . . f . . . . . . . . f . . f 
+        f . . f . . . . . . . . f . . f 
+        . f f . . . . . . . . . . f f . 
+        `, SpriteKind.Player)
+    scene.cameraFollowSprite(theTank)
+    controller.moveSprite(theTank)
+    if (gameDifficulty == 1) {
+        tiles.setTilemap(tilemap`level1`)
+    } else if (gameDifficulty == 2) {
+    	
+    } else if (gameDifficulty == 3) {
+    	
+    }
 }
 // This function creates the start menu. It adds all of the difficulty choices that a player would be able to interact with to chose the difficulty they want to play. It makes the difficulty's as their own "kind" of category. It also makes the difficulty sprites say which difficulty they are.
 function start () {
@@ -237,9 +268,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Med, function (sprite, otherSpri
         setDifficulty()
     }
 })
-let menuSelector: Sprite = null
+let theTank: Sprite = null
 let hardDifficulty: Sprite = null
 let mediumDifficulty: Sprite = null
 let easyDifficulty: Sprite = null
+let menuSelector: Sprite = null
 let gameDifficulty = 0
 start()
