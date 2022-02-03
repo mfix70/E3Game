@@ -33,12 +33,37 @@ function setDifficulty () {
     controller.moveSprite(theTank)
     if (gameDifficulty == 1) {
         tiles.setTilemap(tilemap`level1`)
+        for (let index = 0; index < 10; index++) {
+            enemys = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . b 5 b . . . 
+                . . . . . . . . . b 5 b . . . . 
+                . . . . . . b b b b b b . . . . 
+                . . . . . b b 5 5 5 5 5 b . . . 
+                . b b b b b 5 5 5 5 5 5 5 b . . 
+                . b d 5 b 5 5 5 5 5 5 5 5 b . . 
+                . . b 5 5 b 5 d 1 f 5 d 4 f . . 
+                . . b d 5 5 b 1 f f 5 4 4 c . . 
+                b b d b 5 5 5 d f b 4 4 4 4 4 b 
+                b d d c d 5 5 b 5 4 4 4 4 4 b . 
+                c d d d c c b 5 5 5 5 5 5 5 b . 
+                c b d d d d d 5 5 5 5 5 5 5 b . 
+                . c d d d d d d 5 5 5 5 5 d b . 
+                . . c b d d d d d 5 5 5 b b . . 
+                . . . c c c c c c c c b b . . . 
+                `, SpriteKind.Enemy)
+            enemys.setPosition(200, 100)
+            enemys.follow(theTank, 60)
+        }
     } else if (gameDifficulty == 2) {
     	
     } else if (gameDifficulty == 3) {
     	
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
+	
+})
 // This function creates the start menu. It adds all of the difficulty choices that a player would be able to interact with to chose the difficulty they want to play. It makes the difficulty's as their own "kind" of category. It also makes the difficulty sprites say which difficulty they are.
 function start () {
     scene.setBackgroundImage(img`
@@ -252,6 +277,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Med, function (sprite, otherSpri
         setDifficulty()
     }
 })
+let enemys: Sprite = null
 let hardDifficulty: Sprite = null
 let mediumDifficulty: Sprite = null
 let easyDifficulty: Sprite = null
