@@ -20,7 +20,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Easy, function (sprite, otherSpr
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+    projectile = sprites.createProjectileFromSprite(assets.image`tankShell`, theTank, 50, 0)
+    pause(100)
 })
 function setDifficulty () {
     menuSelector.destroy()
@@ -268,10 +269,11 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Med, function (sprite, otherSpri
         setDifficulty()
     }
 })
-let theTank: Sprite = null
 let hardDifficulty: Sprite = null
 let mediumDifficulty: Sprite = null
 let easyDifficulty: Sprite = null
 let menuSelector: Sprite = null
+let theTank: Sprite = null
+let projectile: Sprite = null
 let gameDifficulty = 0
 start()
