@@ -1,10 +1,83 @@
 namespace SpriteKind {
     export const interactable = SpriteKind.create()
     export const options = SpriteKind.create()
+    export const Easy = SpriteKind.create()
+    export const Med = SpriteKind.create()
+    export const Hard = SpriteKind.create()
 }
+function difficultySettings () {
+    playButton.destroy()
+    settingsButton.destroy()
+    easyDifficulty = sprites.create(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . b b . . . . . . . 
+        . . . . . . b 5 5 b . . . . . . 
+        . . . b b b 5 5 1 1 b b b . . . 
+        . . . b 5 5 5 5 1 1 5 5 b . . . 
+        . . . . b d 5 5 5 5 d b . . . . 
+        . . . . c b 5 5 5 5 b c . . . . 
+        . . . . c 5 d d d d 5 c . . . . 
+        . . . . c 5 d c c d 5 c . . . . 
+        . . . . c c c . . c c c . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Easy)
+    easyDifficulty.setPosition(30, 70)
+    easyDifficulty.sayText("Easy!")
+    mediumDifficulty = sprites.create(img`
+        . . . . . . . b b . . . . . . . 
+        . . . . . . b d d b . . . . . . 
+        . . . . . b d 5 5 d b . . . . . 
+        . . . . b b 5 5 5 5 b b . . . . 
+        . . . . b 5 5 5 5 5 5 b . . . . 
+        b b b b b 5 5 5 5 1 1 d b b b b 
+        b 5 5 5 5 5 5 5 5 1 1 1 5 5 5 b 
+        b d d 5 5 5 5 5 5 1 1 1 5 d d b 
+        . b d d 5 5 5 5 5 5 5 5 d d b . 
+        . . b b 5 5 5 5 5 5 5 5 b b . . 
+        . . c b 5 5 5 5 5 5 5 5 b c . . 
+        . . c 5 5 5 5 d d 5 5 5 5 c . . 
+        . . c 5 5 d b b b b d 5 5 c . . 
+        . . c 5 d b c c c c b d 5 c . . 
+        . . c c c c . . . . c c c c . . 
+        . . . . . . . . . . . . . . . . 
+        `, SpriteKind.Med)
+    mediumDifficulty.setPosition(70, 70)
+    mediumDifficulty.sayText("Medium!!")
+    hardDifficulty = sprites.create(img`
+        . . . . . b b . . . . . . . . . 
+        . . . . b 5 b b . . . . . . . . 
+        . . b b 5 5 5 b b b . . . . . . 
+        . b 5 5 5 5 5 5 5 b . . b . . . 
+        . . b b 5 5 5 b b . . b 5 b . . 
+        . . b 5 5 b 5 5 b . b 5 5 5 b . 
+        . . b 5 b b b 5 b . . b 5 b . . 
+        . . b b . . b b b . . b b b . . 
+        . b 5 b b . . . . . b 5 b . . . 
+        b 5 5 5 b b . . . b b 5 b b . . 
+        . b 5 b b 5 b . b 5 5 5 5 5 b . 
+        . b b b 5 5 5 b b b 5 5 5 b b . 
+        . . b 5 5 5 5 5 b b 5 b 5 b . . 
+        . . . b 5 5 5 b . . b b b . . . 
+        . . . b 5 b 5 b . . . . . . . . 
+        . . . b b b b b . . . . . . . . 
+        `, SpriteKind.Hard)
+    hardDifficulty.setPosition(110, 70)
+    hardDifficulty.sayText("Hard!!!")
+    menuSelector.setPosition(70, 15)
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.options, function (sprite, otherSprite) {
+    if (controller.A.isPressed()) {
+        difficultySettings()
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.interactable, function (sprite, otherSprite) {
     if (controller.A.isPressed()) {
-        menu += 1
+        menu = 1
         menuMap()
     }
 })
@@ -183,7 +256,7 @@ function menuMap () {
             `, SpriteKind.Player)
         menuSelector.setStayInScreen(true)
         controller.moveSprite(menuSelector)
-        game.showLongText("If you really want to play then press the play button.", DialogLayout.Full)
+        game.showLongText("If you really want to play then press the play button or click settings to change difficulty.", DialogLayout.Full)
     } else if (menu == 1) {
         menuSelector.setImage(img`
             . . . . . . . . . . . . . . . . 
@@ -204,11 +277,15 @@ function menuMap () {
             . f f . . . . . . . . . . f f . 
             `)
         playButton.destroy()
+        settingsButton.destroy()
         tiles.setTilemap(tilemap`level1`)
         scene.cameraFollowSprite(menuSelector)
     }
 }
 let menuSelector: Sprite = null
+let hardDifficulty: Sprite = null
+let mediumDifficulty: Sprite = null
+let easyDifficulty: Sprite = null
 let settingsButton: Sprite = null
 let playButton: Sprite = null
 let menu = 0
