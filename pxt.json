@@ -1,5 +1,5 @@
 {
-    "name": "Untitled",
+    "name": "tankGame",
     "description": "",
     "dependencies": {
         "device": "*",
